@@ -108,7 +108,7 @@ jobs:
             --output text | tr '\t' ' ')
           COMMANDS_JSON='{
             "commands": [
-              "aws s3 cp s3://fullstack-deploy-test7/backend/note-app-latest.jar /opt/app/note-app.jar --region ap-northeast-2",
+              "aws s3 cp s3://'${S3_BUCKET}'/backend/note-app-latest.jar /opt/app/note-app.jar --region ap-northeast-2",
               "systemctl restart note-app",
               "sleep 15",
               "STATUS=$(curl -sf -o /dev/null -w \"%{http_code}\" http://localhost:8080/actuator/health)",
@@ -150,7 +150,7 @@ jobs:
             --output text | tr '\t' ' ')
           COMMANDS_JSON='{
             "commands": [
-              "aws s3 cp s3://fullstack-deploy-test7/frontend/frontend-latest.zip /tmp/fe.zip --region ap-northeast-2",
+              "aws s3 cp s3://'${S3_BUCKET}'/frontend/frontend-latest.zip /tmp/fe.zip --region ap-northeast-2",
               "unzip -o /tmp/fe.zip -d /tmp/fe-new",
               "sudo -u ubuntu pm2 stop note-frontend 2>/dev/null || true",
               "rm -rf /opt/frontend/.next /opt/frontend/public",
